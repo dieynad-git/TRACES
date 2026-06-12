@@ -2,11 +2,12 @@
 from selenium import  webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By 
+from selenium.webdriver.common.keys import Keys
 import time 
 
 
 browser = webdriver.Chrome()
-browser.get('https://www.strava.com/')
+browser.get('https://www.strava.com/login')
 
 time.sleep(2) #ou browser.implicitly_wait(2)
 
@@ -19,24 +20,34 @@ no_cookies = browser.find_element(By.ID, "CybotCookiebotDialogBodyButtonDecline"
 no_cookies.click()
 print("Cookies refuses")
 
+email_input_field = browser.find_element(By.ID, "mobile-email")
+email = input("Entrez votre mail : ")
+email_input_field.send_keys(email)
+
+forget_me = browser.find_element(By.CLASS_NAME, "Checkbox_check__HnIia")
+forget_me.click()
+
+login_button = browser.find_element(By.ID, "mobile-login-button")
+login_button.click()
+
 ## Comment m'assurer que les cookies sont refuses ? Liste ?
 #time.sleep(5)
 
-try: 
-    sign_up = browser.find_element(By.CLASS_NAME, "Button_btn__EdK33.Button_primary___8ywh.CallToAction_callToAction__CvDE5.MobileNav_headerCallToAction__eh4jD")
-    ## Why does adding a '.' work for compound class names ?
-    sign_up.click()
+# try: 
+#     sign_up = browser.find_element(By.CLASS_NAME, "Button_btn__EdK33.Button_primary___8ywh.CallToAction_callToAction__CvDE5.MobileNav_headerCallToAction__eh4jD")
+#     ## Why does adding a '.' work for compound class names ?
+#     sign_up.click()
 
-except NoSuchElementException:
-    print("Sign up non trouve")
+# except NoSuchElementException:
+#     print("Sign up non trouve")
 
-else: 
-    print("Sign up trouve")
+# else: 
+#     print("Sign up trouve")
 
-time.sleep(3)
+time.sleep(7)
 
 # Prendre une capture
-browser.save_screenshot('screen_selen.png')
-browser.quit()
+# browser.save_screenshot('screen_selen.png')
+# browser.quit()
 
 #22 29 207 
